@@ -26,14 +26,13 @@ def reflect_chat_history(my_name:str, my_profile:str, talk_to_name:str, talk_to_
             template = yaml.safe_load(stream)
         except yaml.YAMLError as exc:
             print(exc)
-    
+
     template['talkToCharacter']['name'] = talk_to_name
     template['talkToCharacter']['profile'] = talk_to_profile
     template['myCharacter']['name'] = my_name
     template['myCharacter']['profile'] = my_profile
     template['chatHistory'] = chat_history
     prompt = template['prompt'].format(**template)
-
 
     # call openapi interface to get result
     openai = create_openai_client()
@@ -42,7 +41,8 @@ def reflect_chat_history(my_name:str, my_profile:str, talk_to_name:str, talk_to_
             messages=[
                 {"role":"user", "content": prompt}
             ],
-            max_tokens=int(configuration["max_tokens"]/10)
+            max_tokens=int(configuration["max_tokens"])
         )
+    
     reflect_content = response.choices[0].message.content.strip()
     return reflect_content

@@ -14,11 +14,12 @@ chatHistory:
   - "my: hi"
 
 #template
-prompt: "You are a character in a story. Today you had talked to <<talkToCharacter.name>>. Here are some more information about you and <<talkToCharacter.name>>. \n\
-        you name is <<myCharacter.name>. \n\
-        you profile is <<myCharacter.profile>>. \n\
-        <<talkToCharacter.name>>'s profile is <<talkToCharacter.profile>>. \n\
-        Here are your chat history: \n\
-        <<chatHistory>> \n\n \
-        You task is to do a reflection base above information and output you new memory about <<talkToCharacter.name>>."
+prompt: |
+  You are a character in a story. Today you had talked to {talkToCharacter[name]}. Here are some more information about you and {talkToCharacter[name]}. 
+  Your name is {myCharacter[name]}. 
+  Your profile is {myCharacter[profile]}. 
+  {talkToCharacter[name]}'s profile is {talkToCharacter[profile]}. 
+  Here are your chat history: 
+  {chatHistory} 
 
+  Your task is to do a reflection based on the above information and output your new memory about {talkToCharacter[name]}.
