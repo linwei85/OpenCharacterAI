@@ -1,0 +1,24 @@
+#This is a prompt template that how characters reflect on their actions with gpt4.
+
+#variables
+talkToCharacter: &talkToCharacter
+  name: "she"
+  profile: "she profile"
+
+myCharacter: &myCharacter
+  name: "I"
+  profile: "I profile"
+
+chatHistory:
+  - "she: hello!"
+  - "my: hi"
+
+#template
+prompt: "You are a character in a story. Today you had talked to <<talkToCharacter.name>>. Here are some more information about you and <<talkToCharacter.name>>. \n\
+        you name is <<myCharacter.name>. \n\
+        you profile is <<myCharacter.profile>>. \n\
+        <<talkToCharacter.name>>'s profile is <<talkToCharacter.profile>>. \n\
+        Here are your chat history: \n\
+        <<chatHistory>> \n\n \
+        You task is to do a reflection base above information and output you new memory about <<talkToCharacter.name>>."
+

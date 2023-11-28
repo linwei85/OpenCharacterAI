@@ -1,0 +1,1 @@
+# OpenCharacterAI: an open source implementation of character-ai like chatbot system

@@ -1,0 +1,11 @@
+#This is a global config file for the server.
+
+#openai configuation
+api_key:
+  "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"
+model:
+  "gpt-4-1106-preview"
+max_tokens:
+  8192
+proxy:
+  "socks5://127.0.0.1:12777"
