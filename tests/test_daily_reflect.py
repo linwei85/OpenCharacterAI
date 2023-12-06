@@ -34,3 +34,4 @@ def test_reflect_chat_history():
     floder_template = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))+"/server/prompt"
     result = daily_reflect.reflect_chat_history(my_name, my_profile, talk_to_name, talk_to_profile, chat_history, floder_template)
     print("-->result:"+result)
+    assert result is not None

@@ -2,7 +2,7 @@
 
 #openai configuation
 api_key:
-  "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"
+  "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"
 model:
   "gpt-4-1106-preview"
 max_tokens:

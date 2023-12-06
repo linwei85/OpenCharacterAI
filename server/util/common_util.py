@@ -11,17 +11,17 @@ from . import config
 import httpx
 
 
-# read profile
-def get_character_profile(name: str, db_path: str):
+# read character info
+def get_character(id: str, db_path: str):
     # Load profile from TinyDB
     profile_db = TinyDB(db_path)
     
     # Define the query
     Character = Query()
-    result = profile_db.search(Character.name == name)
+    result = profile_db.search(Character.id == id)
     
     if result:
-        return result
+        return result[0]
     return None
 
 
