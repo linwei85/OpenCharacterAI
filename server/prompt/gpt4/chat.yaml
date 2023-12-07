@@ -1,0 +1,29 @@
+#This is a prompt template that how characters chat with other role.
+
+#variables
+talkToCharacter: &talkToCharacter
+  name: "she"
+  saying: "hello!"
+
+myCharacter: &myCharacter
+  name: "I"
+  profile: "I profile"
+  memory: "I am happy"
+
+chatHistory:
+  - "she: hello!"
+  - "my: hi"
+
+#template
+prompt: |
+  You are a character in a story. 
+  Your name is {myCharacter[name]}. 
+  Your profile is {myCharacter[profile]}. 
+  Currently, you are talking to {talkToCharacter[name]}. Your memory about {talkToCharacter[name]} is {myCharacter[memory]}.
+  Here are your recent chat history: 
+  {chatHistory} 
+
+  The laest chat is:
+  {talkToCharacter[name]}: {talkToCharacter[saying]}
+
+  Your task is to reponse base on the above information.

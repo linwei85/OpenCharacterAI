@@ -13,6 +13,7 @@ import datetime
 from tinydb import TinyDB, Query
 from util.common_util import get_character
 from action.daily_reflect import reflect_chat_history
+from action.chat import chat
 
 
 class Character:
@@ -194,7 +195,43 @@ class Character:
         """
         pass
 
-    def chat(self):
+    def chat(self, talk_to_id:str, talk_to_name:str, saying:str):
         """
         Chat with the character. 
         """
+        # load recent 10 chat history record with talk_to_id from db
+        chat_ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        recent_record_num = 10
+        conversation_db = TinyDB(f"{self.floder_data_saved}/{self.name}/recent_conversation.json")
+        recent_conversations = conversation_db.all()
+        if len(recent_conversations) >= 0:
+            recent_conversations = sorted(recent_conversations, key=lambda x: x['ts'], reverse=True)
+            recent_conversations = recent_conversations[:recent_record_num]
+            #replace id with name
+            for conversation in recent_conversations :
+                if conversation['role'] == self.id:
+                    conversation['role'] = self.name
+                else:
+                    conversation['role'] = talk_to_name
+
+
+        parent_path = os.path.dirname(self.floder_data_saved)
+        response = chat(self.name, self.profile, self.memory, talk_to_name, saying, recent_conversations, f"{parent_path}/prompt")
+        response_ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if not response:
+            conversation_db.close()
+            return None
+
+        # update and save
+        self.recent_conversation.append({
+            "ts": chat_ts,
+            "role": talk_to_id,
+            "content": saying
+        })
+        self.recent_conversation.append({
+            "ts": response_ts,
+            "role": self.id,
+            "content": response
+        })
+        self.save(self.floder_data_saved)
+        return response

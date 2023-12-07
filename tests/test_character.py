@@ -130,3 +130,14 @@ def test_character_reflect():
     character_cray.reflect()
     assert character_cray.memory is not None
     assert len(character_cray.memory)>0
+
+def test_chat():
+    # load Cray
+    id = "222"
+    name = "zzz"
+    profile = "zzz"
+    folder_data_saved = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))+f"/server/data"
+    character_cray = Character(id, name, profile, folder_data_saved)
+    response = character_cray.chat("111", "Simon", "Cray, 你让我生气了，你是SB么？")
+    assert len(response) > 0
+    print(response)

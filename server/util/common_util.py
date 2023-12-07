@@ -30,3 +30,33 @@ def create_openai_client():
     proxy_client = httpx.Client(proxies={"http://": config.configuration["proxy"], "https://": config.configuration["proxy"]})
     openai_client = OpenAI(api_key=config.configuration["api_key"], http_client=proxy_client)
     return openai_client
+
+def get_chat_response(model_name:str, system_prompt:str, chat_msg:list, max_tokens_num:int):
+    openai = create_openai_client()
+    msgs = []
+    if system_prompt:
+        msgs.append({"role":"system", "content": system_prompt})
+    if chat_msg:
+        msgs.extend(chat_msg)
+    response = openai.chat.completions.create(
+            model=model_name,
+            messages=msgs,
+            max_tokens=max_tokens_num
+        )
+    
+    response_content = response.choices[0].message.content.strip()
+    return response_content
+
+
+def get_chat_response(model_name:str, prompt:str, max_tokens_num:int):
+    openai = create_openai_client()
+    response = openai.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role":"user", "content": prompt}
+            ],
+            max_tokens=max_tokens_num
+        )
+    
+    response_content = response.choices[0].message.content.strip()
+    return response_content
